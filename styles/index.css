@@ -1,0 +1,121 @@
+body {
+  font-family: Helvetica, sans-serif;
+  color: white;
+  background: #4b6cb7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+main {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+main > section {
+  flex: 1 0 100%;
+}
+
+#video-player {
+  /* border: 2px solid red; */
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: start;
+  font-size: 10px;
+}
+
+#playlist {
+  /* border: 2px solid blue;719429 */
+  font-size: 10px;
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #182848;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Styles Video Player */
+#video-player h1 {
+  font-size: 1.5em;
+  margin-left: 1em;
+  background-color: #182848;
+  margin: 0;
+  padding: 10px;
+  width: 100%;
+}
+
+video {
+  width: 100%;
+  box-shadow: rgba(110, 13, 208, 0.48)  6px 2px 16px 0px, rgba(110, 13, 208, 0.8)  -6px -2px 16px 0px;
+}
+
+/* Styles PlayList */
+
+#playlist > h1 {
+  font-size: 1.5em;
+  margin-left: 1em;
+}
+
+.video-list {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-card {
+  /* border: 1px solid black; */
+  width: 90%;
+  margin: auto 1em;
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 1.5em;
+}
+.video-card article {
+  margin-left: 1em;
+}
+
+.video-card h1 {
+  font-size: 1.3em;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.video-card p {
+  font-size: 1em;
+  margin: 0;
+}
+
+
+@media (min-width: 768px) { 
+  main {
+    flex-flow: row nowrap;
+    height: 100vh;
+  }
+
+  #video-player {
+    flex: 1 0 75%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px;
+    font-size: 12px;
+    flex-direction: column-reverse;
+  }
+
+  #video-player > h1 {
+    font-size: 3em;
+    margin-left: 1em;
+    background-color: transparent;
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  #playlist {
+    flex: 1 0 25%;
+    font-size: 12px;
+    border-left: 3px solid #182848;
+  }
+}
