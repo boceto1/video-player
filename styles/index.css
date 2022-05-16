@@ -16,7 +16,6 @@ main > section {
 }
 
 #video-player {
-  /* border: 2px solid red; */
   display: flex;
   flex-flow: column wrap;
   justify-content: start;
@@ -24,7 +23,6 @@ main > section {
 }
 
 #playlist {
-  /* border: 2px solid blue;719429 */
   font-size: 10px;
   background: #ECE9E6;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
@@ -98,6 +96,12 @@ video {
   cursor: pointer;
   margin-bottom: 1.5em;
 }
+
+.video-card img {
+  width: 15em;
+  height: 10em;
+}
+
 .video-card article {
   margin-left: 1em;
 }

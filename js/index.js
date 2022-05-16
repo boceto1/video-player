@@ -5,8 +5,47 @@ const muteButton = document.querySelector('#mute-button');
 const volumeSlider = document.querySelector('#volume-slider');
 const fullScreenButton = document.querySelector('#fullscreen-button');
 const progressSlider = document.querySelector('#progress-slider');
+const snapshotButton = document.querySelector('#snapshot-button');
+const videoTitle = document.querySelector('#video-player > h1');
+const mp4VideoFile = document.querySelector('#mp4File');
+const webMVideoFile = document.querySelector('#webmFile');
+
+const playlistContainer = document.querySelector('.video-list');
 
 initializePlayer();
+
+const videos = [
+  {
+    title: 'React Global Summit 2022 2',
+    description: 'Video de presentación para React Global Summit 2022',
+    mp4File: './public/videos/mock-video-2.mp4',
+    webMFile: './public/videos/mock-video-2.webm',
+    thumbnail: './public/images/image-video-2.png',
+  },
+  {
+    title: 'React Global Summit 2022',
+    description: 'Video de presentación para React Global Summit 2022',
+    mp4File: './public/videos/mock-video-2.mp4',
+    webMFile: './public/videos/mock-video-2.webm',
+    thumbnail: './public/images/image-video-2.png',
+  },
+  {
+    title: 'React Global Summit 2022 3',
+    description: 'Video de presentación para React Global Summit 2022',
+    mp4File: './public/videos/mock-video-2.mp4',
+    webMFile: './public/videos/mock-video-2.webm',
+    thumbnail: './public/images/image-video-2.png',
+  },
+  {
+    title: 'React Global Summit 2022 4',
+    description: 'Video de presentación para React Global Summit 2022',
+    mp4File: './public/videos/mock-video-2.mp4',
+    webMFile: './public/videos/mock-video-2.webm',
+    thumbnail: './public/images/image-video-2.png',
+  },
+];
+
+const currentVideo = videos[0];
 
 function initializePlayer() {
   playButton.addEventListener('click', playPausePlayer);
@@ -14,6 +53,46 @@ function initializePlayer() {
   volumeSlider.addEventListener('change', setVolume);
   fullScreenButton.addEventListener('click', setUnsetFullScreen);
   progressSlider.addEventListener('change', setProgress);
+  snapshotButton.addEventListener('click', takeSnapshot);
+}
+
+function setVideos() {
+  setCurrentVideo();
+  setPlayList();
+}
+
+function setCurrentVideo () {
+  videoTitle.textContent = currentVideo.title;
+  mp4VideoFile.src = currentVideo.mp4File;
+  webMVideoFile.src = currentVideo.webMFile;
+}
+
+function setPlayList () {
+  videos.forEach(video => {
+    const videoCard = createVideoCard(video);
+    playlistContainer.appendChild(videoCard);
+  });
+}
+
+function createVideoCard (cardInfo) {
+  const videoTitle = document.createElement('h1');
+  const videoDescription = document.createElement('p');
+
+  videoTitle.textContent = cardInfo.title;
+  videoDescription.textContent = cardInfo.description;
+
+  const infoContainer = document.createElement('article');
+  infoContainer.appendChild(videoTitle);
+  infoContainer.appendChild(videoDescription);
+
+  const image = document.createElement('img');
+  image.src = cardInfo.thumbnail;
+
+  const cardContainer = document.createElement('div');
+  cardContainer.classList.add("video-card");
+  cardContainer.appendChild(image);
+  cardContainer.appendChild(infoContainer);
+  return cardContainer;
 }
 
 function playPausePlayer() {
@@ -105,8 +184,16 @@ function progressLoop() {
 
 function setProgress (progress) {
   const progressValue = progress.target.value;
-  
   const progressVideoValue = (progressValue * media.duration) / 100;
-  console.log(progressValue);
   media.currentTime = progressVideoValue;
+}
+
+function takeSnapshot () {
+  const canvas = document.createElement('canvas');
+  canvas.width = 720;
+  canvas.height = 450;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(media, 0, 0, canvas.width, canvas.height);
+  const dataURI = canvas.toDataURL('image/png');
+  window.open(dataURI, '_blank')
 }
