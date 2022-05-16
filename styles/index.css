@@ -36,6 +36,11 @@ main > section {
 }
 
 /* Styles Video Player */
+
+.video-container {
+  position: relative;
+}
+
 #video-player h1 {
   font-size: 1.5em;
   margin-left: 1em;
@@ -48,6 +53,27 @@ main > section {
 video {
   width: 100%;
   box-shadow: rgba(110, 13, 208, 0.48)  6px 2px 16px 0px, rgba(110, 13, 208, 0.8)  -6px -2px 16px 0px;
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.448);
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  visibility: visible;
+}
+
+#mute-button {
+  margin: 10px;
+}
+
+#progress-slider {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(-50px);
+  margin: auto;
+  width: 100%;
 }
 
 /* Styles PlayList */

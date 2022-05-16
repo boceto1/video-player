@@ -11,9 +11,28 @@
 <body>
   <main>
     <section id="video-player">
-      <video controls>
-        <source src="./public/videos/mock-video-2.mp4" type="video/mp4">
-      </video>
+      <div class="video-container">
+        <div class="overlay">
+          <button id="mute-button">Mute</button>
+          <button id="play-stop">Play</button>
+          <button id="fullscreen-button">Fullscreen</button>
+          <div>
+            <button id="speed-0.5" onclick="changeSpeedRate(0.5)">0.5x</button>
+            <button id="speed-1" onclick="changeSpeedRate(1)">1x</button>
+            <button id="speed-1.5" onclick="changeSpeedRate(1.5)">1.5x</button>
+            <button id="speed-2" onclick="changeSpeedRate(2)">2.x</button>
+          </div>
+          <div>
+            <input id="volume-slider" type="range" min="0" max="100" value="50">
+          </div>
+          <div>
+            <input id="progress-slider" type="range" min="0" max="100" value="0">
+          </div>
+        </div>
+        <video>
+          <source src="./public/videos/mock-video-2.mp4" type="video/mp4">
+        </video>
+      </div>
       <h1>Cómo utilizar este reproductor</h1>
     </section>
     <section id="playlist">
@@ -78,5 +97,6 @@
       </div>
     </section>
   </main>
+  <script src="./js/index.js"></script>
 </body>
 </html>
