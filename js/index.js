@@ -1,21 +1,25 @@
 const videoContainer = document.querySelector('.video-container');
 const media = document.querySelector('video');
+const videoTitle = document.querySelector('#video-player > h1');
+const mp4VideoFile = document.querySelector('#mp4File');
+const webMVideoFile = document.querySelector('#webmFile');
+const playlistContainer = document.querySelector('.video-list');
+
+
 const playButton = document.querySelector('#play-stop');
 const muteButton = document.querySelector('#mute-button');
 const volumeSlider = document.querySelector('#volume-slider');
 const fullScreenButton = document.querySelector('#fullscreen-button');
 const progressSlider = document.querySelector('#progress-slider');
 const snapshotButton = document.querySelector('#snapshot-button');
-const videoTitle = document.querySelector('#video-player > h1');
-const mp4VideoFile = document.querySelector('#mp4File');
-const webMVideoFile = document.querySelector('#webmFile');
-
-const playlistContainer = document.querySelector('.video-list');
+const nextVideoButton = document.querySelector('#next-button');
+const previousVideoButton = document.querySelector('#previous-button');
 
 initializePlayer();
 
 const videos = [
   {
+    id: 0,
     title: 'React Global Summit 2022 (Jean Karlo Obando)',
     description: 'Video de presentación para React Global Summit 2022',
     mp4File: './public/videos/video0.mp4',
@@ -23,6 +27,7 @@ const videos = [
     thumbnail: './public/images/video0.png',
   },
   {
+    id: 1,
     title: 'Discurso "Fail Big" por Denzel Washinton ',
     description: 'Denzel Washinton presenta discurso sobre arriesgarse en una graduación',
     mp4File: './public/videos/video1.mp4',
@@ -30,6 +35,7 @@ const videos = [
     thumbnail: './public/images/video1.png',
   },
   {
+    id: 2,
     title: '¿Cómo estás utilizando tu tiempo?',
     description: 'Video motivacional acerca del uso correcto del tiempo',
     mp4File: './public/videos/video2.mp4',
@@ -37,6 +43,7 @@ const videos = [
     thumbnail: './public/images/video2.png',
   },
   {
+    id: 3,
     title: 'En busca del destino (Escena pintura)',
     description: 'Conversación entre Sean y Will acerca de una pintura',
     mp4File: './public/videos/video3.mp4',
@@ -44,6 +51,7 @@ const videos = [
     thumbnail: './public/images/video3.png',
   },
   {
+    id: 4,
     title: 'En busca del destino (Escena primer encuentro)',
     description: 'Primer encuentro entre Sean y Will donde conversan de libros',
     mp4File: './public/videos/video4.mp4',
@@ -51,6 +59,7 @@ const videos = [
     thumbnail: './public/images/video4.png',
   },
   {
+    id: 5,
     title: '¿Cómo estás viviendo tu vida?',
     description: 'Video motivacional acerca del valor de enfrentar la vida con optimismo',
     mp4File: './public/videos/video5.mp4',
@@ -59,7 +68,7 @@ const videos = [
   },
 ];
 
-const currentVideo = videos[0];
+let currentVideo = videos[0];
 
 function initializePlayer() {
   playButton.addEventListener('click', playPausePlayer);
@@ -68,6 +77,10 @@ function initializePlayer() {
   fullScreenButton.addEventListener('click', setUnsetFullScreen);
   progressSlider.addEventListener('change', setProgress);
   snapshotButton.addEventListener('click', takeSnapshot);
+  nextVideoButton.addEventListener('click', setNextVideo);
+  previousVideoButton.addEventListener('click', setPreviousVideo);
+
+  media.addEventListener('ended', () => playButton.textContent = "Play")
 }
 
 function setVideos() {
@@ -75,11 +88,37 @@ function setVideos() {
   setPlayList();
 }
 
-function setCurrentVideo (videoInfo) {
+function setCurrentVideo (videoInfo, isAutoPlay = false) {
   videoTitle.textContent = videoInfo.title;
   mp4VideoFile.src = videoInfo.mp4File;
   webMVideoFile.src = videoInfo.webMFile;
   media.load();
+  
+  currentVideo = videoInfo;
+
+  if (isAutoPlay) {
+    playVideo()
+    
+  } else {
+    playButton.textContent = "Play";
+  }
+  
+}
+
+function setNextVideo() {
+  const nextVideoIndex =
+    currentVideo.id === videos.length - 1 ? 0 : currentVideo.id + 1;
+  
+  const nextVideo = videos[nextVideoIndex];
+  setCurrentVideo(nextVideo, true);
+}
+
+function setPreviousVideo() {
+  const previousVideoIndex =
+    currentVideo.id === 0 ? videos.length - 1 : currentVideo.id - 1;
+  
+  const previousVideo = videos[previousVideoIndex];
+  setCurrentVideo(previousVideo, true);
 }
 
 function setPlayList () {
@@ -115,14 +154,18 @@ function createVideoCard (cardInfo, index) {
 
 function selectVideo(videoIndex) {
   const nextVideo = videos[videoIndex];
-  setCurrentVideo(nextVideo);
+  setCurrentVideo(nextVideo, true);
+}
+
+function playVideo() {
+  playButton.textContent = "Stop";
+  media.play();
+  progressLoop();
 }
 
 function playPausePlayer() {
   if (media.paused) {
-    playButton.textContent = "Stop";
-    media.play();
-    progressLoop();
+    playVideo();
   } else {
     playButton.textContent = "Play";
     media.pause();

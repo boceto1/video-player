@@ -96,9 +96,14 @@ video {
   margin: auto 1em;
   display: flex;
   cursor: pointer;
-  margin-bottom: 1.5em;
-  padding-bottom: 10px;
+  padding-top: 1em;
+  padding-bottom: 1em;
   border-bottom: 3px solid #6e0dd07a;
+}
+
+.video-card:hover {
+  background-color: #182848;
+  color: white
 }
 
 .video-card img {
