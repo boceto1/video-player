@@ -16,32 +16,46 @@ initializePlayer();
 
 const videos = [
   {
-    title: 'React Global Summit 2022 2',
+    title: 'React Global Summit 2022 (Jean Karlo Obando)',
     description: 'Video de presentación para React Global Summit 2022',
-    mp4File: './public/videos/mock-video-2.mp4',
-    webMFile: './public/videos/mock-video-2.webm',
-    thumbnail: './public/images/image-video-2.png',
+    mp4File: './public/videos/video0.mp4',
+    webMFile: './public/videos/video0.webm',
+    thumbnail: './public/images/video0.png',
   },
   {
-    title: 'React Global Summit 2022',
-    description: 'Video de presentación para React Global Summit 2022',
-    mp4File: './public/videos/mock-video-2.mp4',
-    webMFile: './public/videos/mock-video-2.webm',
-    thumbnail: './public/images/image-video-2.png',
+    title: 'Discurso "Fail Big" por Denzel Washinton ',
+    description: 'Denzel Washinton presenta discurso sobre arriesgarse en una graduación',
+    mp4File: './public/videos/video1.mp4',
+    webMFile: './public/videos/video1.webm',
+    thumbnail: './public/images/video1.png',
   },
   {
-    title: 'React Global Summit 2022 3',
-    description: 'Video de presentación para React Global Summit 2022',
-    mp4File: './public/videos/mock-video-2.mp4',
-    webMFile: './public/videos/mock-video-2.webm',
-    thumbnail: './public/images/image-video-2.png',
+    title: '¿Cómo estás utilizando tu tiempo?',
+    description: 'Video motivacional acerca del uso correcto del tiempo',
+    mp4File: './public/videos/video2.mp4',
+    webMFile: './public/videos/video2.webm',
+    thumbnail: './public/images/video2.png',
   },
   {
-    title: 'React Global Summit 2022 4',
-    description: 'Video de presentación para React Global Summit 2022',
-    mp4File: './public/videos/mock-video-2.mp4',
-    webMFile: './public/videos/mock-video-2.webm',
-    thumbnail: './public/images/image-video-2.png',
+    title: 'En busca del destino (Escena pintura)',
+    description: 'Conversación entre Sean y Will acerca de una pintura',
+    mp4File: './public/videos/video3.mp4',
+    webMFile: './public/videos/video3.webm',
+    thumbnail: './public/images/video3.png',
+  },
+  {
+    title: 'En busca del destino (Escena primer encuentro)',
+    description: 'Primer encuentro entre Sean y Will donde conversan de libros',
+    mp4File: './public/videos/video4.mp4',
+    webMFile: './public/videos/video4.webm',
+    thumbnail: './public/images/video4.png',
+  },
+  {
+    title: '¿Cómo estás viviendo tu vida?',
+    description: 'Video motivacional acerca del valor de enfrentar la vida con optimismo',
+    mp4File: './public/videos/video5.mp4',
+    webMFile: './public/videos/video5.webm',
+    thumbnail: './public/images/video5.png',
   },
 ];
 
@@ -57,24 +71,25 @@ function initializePlayer() {
 }
 
 function setVideos() {
-  setCurrentVideo();
+  setCurrentVideo(currentVideo);
   setPlayList();
 }
 
-function setCurrentVideo () {
-  videoTitle.textContent = currentVideo.title;
-  mp4VideoFile.src = currentVideo.mp4File;
-  webMVideoFile.src = currentVideo.webMFile;
+function setCurrentVideo (videoInfo) {
+  videoTitle.textContent = videoInfo.title;
+  mp4VideoFile.src = videoInfo.mp4File;
+  webMVideoFile.src = videoInfo.webMFile;
+  media.load();
 }
 
 function setPlayList () {
-  videos.forEach(video => {
-    const videoCard = createVideoCard(video);
+  videos.forEach((video, index) => {
+    const videoCard = createVideoCard(video, index);
     playlistContainer.appendChild(videoCard);
   });
 }
 
-function createVideoCard (cardInfo) {
+function createVideoCard (cardInfo, index) {
   const videoTitle = document.createElement('h1');
   const videoDescription = document.createElement('p');
 
@@ -92,7 +107,15 @@ function createVideoCard (cardInfo) {
   cardContainer.classList.add("video-card");
   cardContainer.appendChild(image);
   cardContainer.appendChild(infoContainer);
+
+  cardContainer.id = index;
+  cardContainer.addEventListener('click', () => selectVideo(index));
   return cardContainer;
+}
+
+function selectVideo(videoIndex) {
+  const nextVideo = videos[videoIndex];
+  setCurrentVideo(nextVideo);
 }
 
 function playPausePlayer() {

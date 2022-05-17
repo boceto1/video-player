@@ -37,6 +37,8 @@ main > section {
 
 .video-container {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 #video-player h1 {
@@ -51,6 +53,7 @@ main > section {
 video {
   width: 100%;
   box-shadow: rgba(110, 13, 208, 0.48)  6px 2px 16px 0px, rgba(110, 13, 208, 0.8)  -6px -2px 16px 0px;
+
 }
 
 .overlay {
@@ -89,12 +92,13 @@ video {
 }
 
 .video-card {
-  /* border: 1px solid black; */
   width: 90%;
   margin: auto 1em;
   display: flex;
   cursor: pointer;
   margin-bottom: 1.5em;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #6e0dd07a;
 }
 
 .video-card img {
@@ -118,14 +122,18 @@ video {
 }
 
 
-@media (min-width: 768px) { 
+@media (min-width: 1020px) { 
   main {
     flex-flow: row nowrap;
     height: 100vh;
   }
 
+  .video-container {
+    height: inherit;
+  }
+
   #video-player {
-    flex: 1 0 75%;
+    flex: 1 0 70%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -144,7 +152,7 @@ video {
   }
   
   #playlist {
-    flex: 1 0 25%;
+    flex: 1 0 30%;
     font-size: 12px;
     border-left: 3px solid #182848;
   }
