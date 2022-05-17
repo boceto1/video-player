@@ -14,6 +14,7 @@ const progressSlider = document.querySelector('#progress-slider');
 const snapshotButton = document.querySelector('#snapshot-button');
 const nextVideoButton = document.querySelector('#next-button');
 const previousVideoButton = document.querySelector('#previous-button');
+const subtitles = document.querySelectorAll('track');
 
 initializePlayer();
 
@@ -25,6 +26,10 @@ const videos = [
     mp4File: './public/videos/video0.mp4',
     webMFile: './public/videos/video0.webm',
     thumbnail: './public/images/video0.png',
+    subtitles: {
+      es: './public/subtitles/es/video0.es.vtt',
+      en: './public/subtitles/en/video0.en.vtt'
+    }
   },
   {
     id: 1,
@@ -33,6 +38,10 @@ const videos = [
     mp4File: './public/videos/video1.mp4',
     webMFile: './public/videos/video1.webm',
     thumbnail: './public/images/video1.png',
+    subtitles: {
+      es: './public/subtitles/es/video1.es.vtt',
+      en: './public/subtitles/en/video1.en.vtt'
+    }
   },
   {
     id: 2,
@@ -41,6 +50,10 @@ const videos = [
     mp4File: './public/videos/video2.mp4',
     webMFile: './public/videos/video2.webm',
     thumbnail: './public/images/video2.png',
+    subtitles: {
+      es: './public/subtitles/es/video2.es.vtt',
+      en: './public/subtitles/en/video2.en.vtt'
+    }
   },
   {
     id: 3,
@@ -49,6 +62,10 @@ const videos = [
     mp4File: './public/videos/video3.mp4',
     webMFile: './public/videos/video3.webm',
     thumbnail: './public/images/video3.png',
+    subtitles: {
+      es: './public/subtitles/es/video3.es.vtt',
+      en: './public/subtitles/en/video3.en.vtt'
+    }
   },
   {
     id: 4,
@@ -57,6 +74,10 @@ const videos = [
     mp4File: './public/videos/video4.mp4',
     webMFile: './public/videos/video4.webm',
     thumbnail: './public/images/video4.png',
+    subtitles: {
+      es: './public/subtitles/es/video4.es.vtt',
+      en: './public/subtitles/en/video4.en.vtt'
+    }
   },
   {
     id: 5,
@@ -65,10 +86,14 @@ const videos = [
     mp4File: './public/videos/video5.mp4',
     webMFile: './public/videos/video5.webm',
     thumbnail: './public/images/video5.png',
+    subtitles: {
+      es: './public/subtitles/es/video5.es.vtt',
+      en: './public/subtitles/en/video5.en.vtt'
+    }
   },
 ];
 
-let currentVideo = videos[0];
+let currentVideo = videos[1];
 
 function initializePlayer() {
   playButton.addEventListener('click', playPausePlayer);
@@ -95,6 +120,7 @@ function setCurrentVideo (videoInfo, isAutoPlay = false) {
   media.load();
   
   currentVideo = videoInfo;
+  setSubtitles(currentVideo.subtitles);
 
   if (isAutoPlay) {
     playVideo()
@@ -103,6 +129,14 @@ function setCurrentVideo (videoInfo, isAutoPlay = false) {
     playButton.textContent = "Play";
   }
   
+}
+
+function setSubtitles (videoSubtitles) {
+  const [esSubtitle, enSubtitle] = subtitles;
+  esSubtitle.src = videoSubtitles.es;
+  enSubtitle.src = videoSubtitles.en;
+  media.textTracks[0].mode = "showing";
+  media.textTracks[1].mode = "showing"
 }
 
 function setNextVideo() {
