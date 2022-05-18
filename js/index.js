@@ -93,7 +93,7 @@ const videos = [
   },
 ];
 
-let currentVideo = videos[1];
+let currentVideo = videos[4];
 
 function initializePlayer() {
   playButton.addEventListener('click', playPausePlayer);
