@@ -294,6 +294,10 @@ function takeSnapshot () {
   canvas.height = 450;
   const ctx = canvas.getContext('2d');
   ctx.drawImage(media, 0, 0, canvas.width, canvas.height);
-  const dataURI = canvas.toDataURL('image/png');
-  window.open(dataURI, '_blank')
+  const dataURI = canvas.toDataURL('image/jpg');
+
+  const image = new Image();
+  image.src = dataURI;   
+  const newTab = window.open("", '_blank');
+  newTab.document.write(image.outerHTML);
 }
