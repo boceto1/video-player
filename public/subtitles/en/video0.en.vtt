@@ -1,0 +1,41 @@
+WEBVTT
+
+0
+00:00:00.000 --> 00:00:03.000
+Hello. I'm Jean Karlo Obando
+
+1
+00:00:03.000 --> 00:00:06.000
+I'll be talking about React and Solid
+
+2
+00:00:06.000 --> 00:00:09.000
+How to create your first descentralized application
+
+3
+00:00:09.000 --> 00:00:12.000
+In this talk you will learn about Solid.
+
+4
+00:00:12.000 --> 00:00:15.000
+Project of the creator of the web that pretends to fix it
+
+5
+00:00:15.000 --> 00:00:18.000
+We are going to explore together this new standar
+
+6
+00:00:18.000 --> 00:00:21.000
+that allows us to create applications
+
+7
+00:00:21.000 --> 00:00:24.000
+that are independet of the source of the information
+
+8
+00:00:24.000 --> 00:00:27.000
+and where users have total control over their data
+
+9
+00:00:27.000 --> 00:00:33.000
+I'll see in the React Global Summit 2022

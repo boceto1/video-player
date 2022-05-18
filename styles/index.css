@@ -16,7 +16,6 @@ main > section {
 }
 
 #video-player {
-  /* border: 2px solid red; */
   display: flex;
   flex-flow: column wrap;
   justify-content: start;
@@ -24,7 +23,6 @@ main > section {
 }
 
 #playlist {
-  /* border: 2px solid blue;719429 */
   font-size: 10px;
   background: #ECE9E6;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
@@ -36,6 +34,13 @@ main > section {
 }
 
 /* Styles Video Player */
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 #video-player h1 {
   font-size: 1.5em;
   margin-left: 1em;
@@ -48,6 +53,29 @@ main > section {
 video {
   width: 100%;
   box-shadow: rgba(110, 13, 208, 0.48)  6px 2px 16px 0px, rgba(110, 13, 208, 0.8)  -6px -2px 16px 0px;
+
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.448);
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  /* visibility: ; */
+  display: none;
+}
+
+#mute-button {
+  margin: 10px;
+}
+
+#progress-slider {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(-50px);
+  margin: auto;
+  width: 100%;
 }
 
 /* Styles PlayList */
@@ -65,13 +93,25 @@ video {
 }
 
 .video-card {
-  /* border: 1px solid black; */
   width: 90%;
   margin: auto 1em;
   display: flex;
   cursor: pointer;
-  margin-bottom: 1.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: 3px solid #6e0dd07a;
 }
+
+.video-card:hover {
+  background-color: #182848;
+  color: white
+}
+
+.video-card img {
+  width: 15em;
+  height: 10em;
+}
+
 .video-card article {
   margin-left: 1em;
 }
@@ -88,14 +128,18 @@ video {
 }
 
 
-@media (min-width: 768px) { 
+@media (min-width: 1020px) { 
   main {
     flex-flow: row nowrap;
     height: 100vh;
   }
 
+  .video-container {
+    height: inherit;
+  }
+
   #video-player {
-    flex: 1 0 75%;
+    flex: 1 0 70%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -114,7 +158,7 @@ video {
   }
   
   #playlist {
-    flex: 1 0 25%;
+    flex: 1 0 30%;
     font-size: 12px;
     border-left: 3px solid #182848;
   }

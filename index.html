@@ -8,73 +8,47 @@
   <link rel="stylesheet" href="./styles/index.css">
   <title>Boceto Player</title>
 </head>
-<body>
+<body onload="setVideos()">
   <main>
     <section id="video-player">
-      <video src="./public/videos/mock-video.mp4" controls></video>
-      <h1>Cómo utilizar este reproductor</h1>
+      <div class="video-container">
+        <div class="overlay">
+          <button id="mute-button">Mute</button>
+          <button id="play-stop">Play</button>
+          <button id="fullscreen-button">Fullscreen</button>
+          <button id="snapshot-button">Snapshot</button>
+          <div>
+            <button id="speed-0.5" onclick="changeSpeedRate(0.5)">0.5x</button>
+            <button id="speed-1" onclick="changeSpeedRate(1)">1x</button>
+            <button id="speed-1.5" onclick="changeSpeedRate(1.5)">1.5x</button>
+            <button id="speed-2" onclick="changeSpeedRate(2)">2.x</button>
+          </div>
+          <div>
+            <input id="volume-slider" type="range" min="0" max="100" value="50">
+          </div>
+          <div>
+            <input id="progress-slider" type="range" min="0" max="100" value="0">
+          </div>
+          <div>
+            <button id="previous-button">Previous</button>
+            <button id="next-button">Next</button>
+          </div>
+        </div>
+        <video controls>
+          <source id="mp4File" src="./public/videos/video0.mp4" type="video/mp4">
+          <source id="webmFile" src="./public/videos/video0.webm" type="video/webm">
+          <track label="Español" kind="subtitles" srclang="es" src="./public/subtitles/es/video0.es.vtt" default />
+          <track label="English" kind="subtitles" srclang="en" src="./public/subtitles/en/video0.en.vtt" />
+        </video>
+      </div>
+      <h1>Loading...</h1>
     </section>
     <section id="playlist">
       <h1>Reproducir Siguiente</h1>
       <div class="video-list">
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
-        <div class="video-card">
-          <img src="http://placehold.jp/110x65.png" />
-          <article>
-            <h1>Mutear video</h1>
-            <p>Lorem impsum lalalalalalassda</p>
-          </article>
-        </div>
       </div>
     </section>
   </main>
+  <script src="./js/index.js"></script>
 </body>
 </html>
