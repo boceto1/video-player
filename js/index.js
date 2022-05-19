@@ -7,17 +7,19 @@ const playlistContainer = document.querySelector('.video-list');
 const subtitles = document.querySelectorAll('track');
 const videoControlsContainer = document.querySelector('.video-container');
 const videoControlsOverlay = document.querySelector('.overlay');
+const progressBox = document.querySelector('#progress-box')
 
 
 const playButton = document.querySelector('#play-stop');
 const muteButton = document.querySelector('#mute-button');
 const volumeSlider = document.querySelector('#volume-slider');
 const fullScreenButton = document.querySelector('#fullscreen-button');
-const progressSlider = document.querySelector('#progress-slider');
+const progressSlider = document.querySelector('#progress-slider input');
 const snapshotButton = document.querySelector('#snapshot-button');
 const nextVideoButton = document.querySelector('#next-button');
 const previousVideoButton = document.querySelector('#previous-button');
 
+let progressLoopInterval;
 
 initializePlayer();
 
@@ -108,7 +110,10 @@ function initializePlayer() {
   nextVideoButton.addEventListener('click', setNextVideo);
   previousVideoButton.addEventListener('click', setPreviousVideo);
 
-  media.addEventListener('ended', () => playButton.textContent = "Play");
+  media.addEventListener('ended', () => {
+    playButton.textContent = "Play";
+    clearInterval(progressLoopInterval);
+  });
   videoControlsContainer.addEventListener('mouseenter', () => displayControls(true));
   videoControlsContainer.addEventListener('mouseleave',  () => displayControls(false))
 }
@@ -208,6 +213,7 @@ function playPausePlayer() {
   } else {
     playButton.textContent = "Play";
     media.pause();
+    clearInterval(progressLoopInterval);
   }
 }
 
@@ -280,15 +286,18 @@ function exitFullscreen() {
 }
 
 function updateProgressBar() {
-  progressSlider.value = Math.round((media.currentTime / media.duration) * 100);
+  const updatedProgress = Math.round((media.currentTime / media.duration) * 100);
+  progressSlider.value = updatedProgress;
+  progressBox.style.width = `${updatedProgress}%`;
 }
 
 function progressLoop() {
-  setInterval(updateProgressBar);
+  progressLoopInterval = setInterval(updateProgressBar);
 }
 
 function setProgress (progress) {
   const progressValue = progress.target.value;
+  progressBox.style.width = `${progressValue}%`;
   const progressVideoValue = (progressValue * media.duration) / 100;
   media.currentTime = progressVideoValue;
 }
