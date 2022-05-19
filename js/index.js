@@ -4,6 +4,9 @@ const videoTitle = document.querySelector('#video-player > h1');
 const mp4VideoFile = document.querySelector('#mp4File');
 const webMVideoFile = document.querySelector('#webmFile');
 const playlistContainer = document.querySelector('.video-list');
+const subtitles = document.querySelectorAll('track');
+const videoControlsContainer = document.querySelector('.video-container');
+const videoControlsOverlay = document.querySelector('.overlay');
 
 
 const playButton = document.querySelector('#play-stop');
@@ -14,7 +17,7 @@ const progressSlider = document.querySelector('#progress-slider');
 const snapshotButton = document.querySelector('#snapshot-button');
 const nextVideoButton = document.querySelector('#next-button');
 const previousVideoButton = document.querySelector('#previous-button');
-const subtitles = document.querySelectorAll('track');
+
 
 initializePlayer();
 
@@ -93,7 +96,7 @@ const videos = [
   },
 ];
 
-let currentVideo = videos[4];
+let currentVideo = videos[0];
 
 function initializePlayer() {
   playButton.addEventListener('click', playPausePlayer);
@@ -105,7 +108,9 @@ function initializePlayer() {
   nextVideoButton.addEventListener('click', setNextVideo);
   previousVideoButton.addEventListener('click', setPreviousVideo);
 
-  media.addEventListener('ended', () => playButton.textContent = "Play")
+  media.addEventListener('ended', () => playButton.textContent = "Play");
+  videoControlsContainer.addEventListener('mouseenter', () => displayControls(true));
+  videoControlsContainer.addEventListener('mouseleave',  () => displayControls(false))
 }
 
 function setVideos() {
@@ -300,4 +305,12 @@ function takeSnapshot () {
   image.src = dataURI;   
   const newTab = window.open("", '_blank');
   newTab.document.write(image.outerHTML);
+}
+
+function displayControls (display) {
+  if (display) {
+    videoControlsOverlay.classList.add("overlay-visible");
+  } else {
+    videoControlsOverlay.classList.remove("overlay-visible");
+  }
 }
