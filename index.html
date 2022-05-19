@@ -13,25 +13,29 @@
     <section id="video-player">
       <div class="video-container">
         <div class="overlay">
-          <button id="mute-button">Mute</button>
-          <button id="play-stop">Play</button>
-          <button id="fullscreen-button">Fullscreen</button>
-          <button id="snapshot-button">Snapshot</button>
-          <div>
-            <button id="speed-0.5" onclick="changeSpeedRate(0.5)">0.5x</button>
-            <button id="speed-1" onclick="changeSpeedRate(1)">1x</button>
-            <button id="speed-1.5" onclick="changeSpeedRate(1.5)">1.5x</button>
-            <button id="speed-2" onclick="changeSpeedRate(2)">2.x</button>
-          </div>
-          <div>
-            <input id="volume-slider" type="range" min="0" max="100" value="50">
+          <div class="controls-container">
+            <div>
+              <button id="play-stop">Play</button>
+              <button id="previous-button">Previous</button>
+              <button id="next-button">Next</button>
+            </div>
+            <div>
+              <button id="mute-button">Mute</button>
+              <input id="volume-slider" type="range" min="0" max="100" value="50">
+            </div>
+            <div>
+              <button id="speed-0.5" onclick="changeSpeedRate(0.5)">0.5x</button>
+              <button id="speed-1" onclick="changeSpeedRate(1)">1x</button>
+              <button id="speed-1.5" onclick="changeSpeedRate(1.5)">1.5x</button>
+              <button id="speed-2" onclick="changeSpeedRate(2)">2.x</button>
+            </div>
+            <div>
+              <button id="fullscreen-button">Fullscreen</button>
+              <button id="snapshot-button">Snapshot</button>
+            </div>
           </div>
           <div>
             <input id="progress-slider" type="range" min="0" max="100" value="0">
-          </div>
-          <div>
-            <button id="previous-button">Previous</button>
-            <button id="next-button">Next</button>
           </div>
         </div>
         <video>

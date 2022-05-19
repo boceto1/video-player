@@ -62,11 +62,20 @@ video {
   height: 100%;
   width: 100%;
   z-index: 999;
-  visibility: hidden;
+  visibility: visible;
 }
 
 .overlay-visible {
   visibility: visible;
+}
+
+.controls-container {
+  border: 5px solid red;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 #mute-button {
@@ -76,7 +85,7 @@ video {
 #progress-slider {
   position: absolute;
   bottom: 0;
-  transform: translateY(-50px);
+  transform: translateY(-60px);
   margin: auto;
   width: 100%;
 }
