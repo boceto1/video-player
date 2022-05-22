@@ -303,11 +303,9 @@ function progressLoop() {
 }
 
 function setProgress (progress) {
-  media.pause();
   const progressValue = progress.target.value;
   const progressVideoValue = (progressValue * media.duration) / 100;
   media.currentTime = progressVideoValue;
-  media.play();
 }
 
 function takeSnapshot () {
