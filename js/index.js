@@ -7,7 +7,6 @@ const playlistContainer = document.querySelector('.video-list');
 const subtitles = document.querySelectorAll('track');
 const videoControlsContainer = document.querySelector('.video-container');
 const videoControlsOverlay = document.querySelector('.overlay');
-const progressBox = document.querySelector('#progress-box')
 
 
 const playButton = document.querySelector('#play-stop');
@@ -112,10 +111,12 @@ function initializePlayer() {
 
   media.addEventListener('ended', () => {
     playButton.textContent = "Play";
+    playButton.style.background = "#4CAF50";
     clearInterval(progressLoopInterval);
   });
   videoControlsContainer.addEventListener('mouseenter', () => displayControls(true));
   videoControlsContainer.addEventListener('mouseleave',  () => displayControls(false))
+  media.volume = 0.8;
 }
 
 function setVideos() {
@@ -142,6 +143,8 @@ function setCurrentVideo (videoInfo, isAutoPlay = false) {
 }
 
 function setSubtitles (videoSubtitles) {
+  media.textTracks[0].mode = "hidden";
+  media.textTracks[1].mode = "hidden"
   const [esSubtitle, enSubtitle] = subtitles;
   esSubtitle.src = videoSubtitles.es;
   enSubtitle.src = videoSubtitles.en;
@@ -203,6 +206,7 @@ function selectVideo(videoIndex) {
 
 function playVideo() {
   playButton.textContent = "Stop";
+  playButton.style.background = "red";
   media.play();
   progressLoop();
 }
@@ -212,6 +216,7 @@ function playPausePlayer() {
     playVideo();
   } else {
     playButton.textContent = "Play";
+    playButton.style.background = "#4CAF50";
     media.pause();
     clearInterval(progressLoopInterval);
   }
@@ -257,8 +262,11 @@ function setUnsetFullScreen () {
   
   if (isFullScreen) {
     exitFullscreen();
+    fullScreenButton.textContent = 'FullScreen'
   } else {
     launchIntoFullscreen(videoContainer);
+    fullScreenButton.textContent = 'Exit FullScreen'
+
   }
 
 }
@@ -288,7 +296,6 @@ function exitFullscreen() {
 function updateProgressBar() {
   const updatedProgress = Math.round((media.currentTime / media.duration) * 100);
   progressSlider.value = updatedProgress;
-  progressBox.style.width = `${updatedProgress}%`;
 }
 
 function progressLoop() {
@@ -297,7 +304,6 @@ function progressLoop() {
 
 function setProgress (progress) {
   const progressValue = progress.target.value;
-  progressBox.style.width = `${progressValue}%`;
   const progressVideoValue = (progressValue * media.duration) / 100;
   media.currentTime = progressVideoValue;
 }
@@ -311,9 +317,24 @@ function takeSnapshot () {
   const dataURI = canvas.toDataURL('image/jpg');
 
   const image = new Image();
-  image.src = dataURI;   
-  const newTab = window.open("", '_blank');
-  newTab.document.write(image.outerHTML);
+  image.src = dataURI;
+
+  const a = document.createElement('a');
+  const linkText = document.createTextNode('Download Image');
+  a.appendChild(linkText);
+  a.title = `image-${new Date()}`;
+  a.href = dataURI;
+  a.download = `image-${new Date()}.jpg`;
+
+  const divContainer = document.createElement('div');
+  divContainer.appendChild(image);
+  divContainer.appendChild(a);
+  divContainer.style.display = "flex";
+  divContainer.style.flexDirection = "column";
+  divContainer.style.width = '30%';
+
+  const newTab = window.open('', '_blank');
+  newTab.document.write(divContainer.outerHTML)
 }
 
 function displayControls (display) {

@@ -62,7 +62,7 @@ video {
   height: 100%;
   width: 100%;
   z-index: 999;
-  visibility: visible;
+  visibility: hidden;
 }
 
 .overlay-visible {
@@ -70,12 +70,31 @@ video {
 }
 
 .controls-container {
-  border: 5px solid red;
   position: absolute;
   bottom: 0;
   display: flex;
   width: 100%;
+  align-items: center;
   justify-content: space-between;
+}
+
+.controls-container > div {
+  display: flex;
+  justify-content: ce;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 2px;
 }
 
 #mute-button {
@@ -85,7 +104,7 @@ video {
 #progress-slider {
   position: absolute;
   bottom: 0;
-  transform: translateY(-60px);
+  transform: translateY(-50px);
   margin: auto;
   width: 100%;
 }
@@ -106,25 +125,56 @@ video {
   position: absolute;
   top: 0;
   z-index: 0;
+  transition: width 0.2s;
 }
 
-#progress-slider input::-webkit-slider-thumb {
+/* #progress-slider input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 0px;
+  width: 15px;
   height: 15px;
-  background: #6e0dd0;
-  cursor: pointer;
+  background: green;
   cursor: pointer;
 }
 
 #progress-slider input::-moz-range-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 0px;
+  width: 15px;
   height: 15px;
-  background: #6e0dd0;
+  background: green;
   cursor: pointer;
+} */
+
+#player-options {
+  margin-left: 1em;
+}
+
+#player-options {
+  margin-left: 1em;
+}
+
+#player-options > button:nth-child(n+2) {
+  background-color: gray;
+}
+
+#sound-options > button {
+  background-color: #008CBA;
+  padding: 10px 20px;
+  font-size: 0.9em;
+}
+
+#speed-options > button {
+  background-color: #4b6cb7;
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+
+#other-options > button {
+  background-color: #6e0dd0;
+  padding: 5px 10px;
+  font-size: 1em;
+  margin-right: 1em;
 }
 
 /* Styles PlayList */
@@ -194,7 +244,7 @@ video {
     justify-content: flex-end;
     padding: 20px;
     font-size: 12px;
-    flex-direction: column-reverse;
+    flex-flow: column-reverse nowrap;
   }
 
   #video-player > h1 {
