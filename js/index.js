@@ -4,17 +4,21 @@ const videoTitle = document.querySelector('#video-player > h1');
 const mp4VideoFile = document.querySelector('#mp4File');
 const webMVideoFile = document.querySelector('#webmFile');
 const playlistContainer = document.querySelector('.video-list');
+const subtitles = document.querySelectorAll('track');
+const videoControlsContainer = document.querySelector('.video-container');
+const videoControlsOverlay = document.querySelector('.overlay');
 
 
 const playButton = document.querySelector('#play-stop');
 const muteButton = document.querySelector('#mute-button');
 const volumeSlider = document.querySelector('#volume-slider');
 const fullScreenButton = document.querySelector('#fullscreen-button');
-const progressSlider = document.querySelector('#progress-slider');
+const progressSlider = document.querySelector('#progress-slider input');
 const snapshotButton = document.querySelector('#snapshot-button');
 const nextVideoButton = document.querySelector('#next-button');
 const previousVideoButton = document.querySelector('#previous-button');
-const subtitles = document.querySelectorAll('track');
+
+let progressLoopInterval;
 
 initializePlayer();
 
@@ -93,7 +97,7 @@ const videos = [
   },
 ];
 
-let currentVideo = videos[4];
+let currentVideo = videos[0];
 
 function initializePlayer() {
   playButton.addEventListener('click', playPausePlayer);
@@ -105,7 +109,14 @@ function initializePlayer() {
   nextVideoButton.addEventListener('click', setNextVideo);
   previousVideoButton.addEventListener('click', setPreviousVideo);
 
-  media.addEventListener('ended', () => playButton.textContent = "Play")
+  media.addEventListener('ended', () => {
+    playButton.textContent = "Play";
+    playButton.style.background = "#4CAF50";
+    clearInterval(progressLoopInterval);
+  });
+  videoControlsContainer.addEventListener('mouseenter', () => displayControls(true));
+  videoControlsContainer.addEventListener('mouseleave',  () => displayControls(false))
+  media.volume = 0.8;
 }
 
 function setVideos() {
@@ -132,6 +143,8 @@ function setCurrentVideo (videoInfo, isAutoPlay = false) {
 }
 
 function setSubtitles (videoSubtitles) {
+  media.textTracks[0].mode = "hidden";
+  media.textTracks[1].mode = "hidden"
   const [esSubtitle, enSubtitle] = subtitles;
   esSubtitle.src = videoSubtitles.es;
   enSubtitle.src = videoSubtitles.en;
@@ -193,6 +206,7 @@ function selectVideo(videoIndex) {
 
 function playVideo() {
   playButton.textContent = "Stop";
+  playButton.style.background = "red";
   media.play();
   progressLoop();
 }
@@ -202,7 +216,9 @@ function playPausePlayer() {
     playVideo();
   } else {
     playButton.textContent = "Play";
+    playButton.style.background = "#4CAF50";
     media.pause();
+    clearInterval(progressLoopInterval);
   }
 }
 
@@ -246,8 +262,11 @@ function setUnsetFullScreen () {
   
   if (isFullScreen) {
     exitFullscreen();
+    fullScreenButton.textContent = 'FullScreen'
   } else {
     launchIntoFullscreen(videoContainer);
+    fullScreenButton.textContent = 'Exit FullScreen'
+
   }
 
 }
@@ -275,11 +294,12 @@ function exitFullscreen() {
 }
 
 function updateProgressBar() {
-  progressSlider.value = Math.round((media.currentTime / media.duration) * 100);
+  const updatedProgress = Math.round((media.currentTime / media.duration) * 100);
+  progressSlider.value = updatedProgress;
 }
 
 function progressLoop() {
-  setInterval(updateProgressBar);
+  progressLoopInterval = setInterval(updateProgressBar);
 }
 
 function setProgress (progress) {
@@ -297,7 +317,30 @@ function takeSnapshot () {
   const dataURI = canvas.toDataURL('image/jpg');
 
   const image = new Image();
-  image.src = dataURI;   
-  const newTab = window.open("", '_blank');
-  newTab.document.write(image.outerHTML);
+  image.src = dataURI;
+
+  const a = document.createElement('a');
+  const linkText = document.createTextNode('Download Image');
+  a.appendChild(linkText);
+  a.title = `image-${new Date()}`;
+  a.href = dataURI;
+  a.download = `image-${new Date()}.jpg`;
+
+  const divContainer = document.createElement('div');
+  divContainer.appendChild(image);
+  divContainer.appendChild(a);
+  divContainer.style.display = "flex";
+  divContainer.style.flexDirection = "column";
+  divContainer.style.width = '30%';
+
+  const newTab = window.open('', '_blank');
+  newTab.document.write(divContainer.outerHTML)
+}
+
+function displayControls (display) {
+  if (display) {
+    videoControlsOverlay.classList.add("overlay-visible");
+  } else {
+    videoControlsOverlay.classList.remove("overlay-visible");
+  }
 }

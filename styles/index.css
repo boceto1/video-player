@@ -52,7 +52,7 @@ main > section {
 
 video {
   width: 100%;
-  box-shadow: rgba(110, 13, 208, 0.48)  6px 2px 16px 0px, rgba(110, 13, 208, 0.8)  -6px -2px 16px 0px;
+  box-shadow: rgba(110, 13, 208, 0.478)  6px 2px 16px 0px, rgba(110, 13, 208, 0.8)  -6px -2px 16px 0px;
 
 }
 
@@ -62,8 +62,39 @@ video {
   height: 100%;
   width: 100%;
   z-index: 999;
-  /* visibility: ; */
-  /* display: none; */
+  visibility: hidden;
+}
+
+.overlay-visible {
+  visibility: visible;
+}
+
+.controls-container {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls-container > div {
+  display: flex;
+  justify-content: ce;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 2px;
 }
 
 #mute-button {
@@ -76,6 +107,74 @@ video {
   transform: translateY(-50px);
   margin: auto;
   width: 100%;
+}
+
+#progress-slider input {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  background: #182848;
+  outline: none;
+}
+
+#progress-box {
+  width: 0%;
+  height: 15px;
+  background: #6e0dd0;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  transition: width 0.2s;
+}
+
+/* #progress-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: green;
+  cursor: pointer;
+}
+
+#progress-slider input::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: green;
+  cursor: pointer;
+} */
+
+#player-options {
+  margin-left: 1em;
+}
+
+#player-options {
+  margin-left: 1em;
+}
+
+#player-options > button:nth-child(n+2) {
+  background-color: gray;
+}
+
+#sound-options > button {
+  background-color: #008CBA;
+  padding: 10px 20px;
+  font-size: 0.9em;
+}
+
+#speed-options > button {
+  background-color: #4b6cb7;
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+
+#other-options > button {
+  background-color: #6e0dd0;
+  padding: 5px 10px;
+  font-size: 1em;
+  margin-right: 1em;
 }
 
 /* Styles PlayList */
@@ -145,7 +244,7 @@ video {
     justify-content: flex-end;
     padding: 20px;
     font-size: 12px;
-    flex-direction: column-reverse;
+    flex-flow: column-reverse nowrap;
   }
 
   #video-player > h1 {

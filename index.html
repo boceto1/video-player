@@ -13,28 +13,32 @@
     <section id="video-player">
       <div class="video-container">
         <div class="overlay">
-          <button id="mute-button">Mute</button>
-          <button id="play-stop">Play</button>
-          <button id="fullscreen-button">Fullscreen</button>
-          <button id="snapshot-button">Snapshot</button>
-          <div>
-            <button id="speed-0.5" onclick="changeSpeedRate(0.5)">0.5x</button>
-            <button id="speed-1" onclick="changeSpeedRate(1)">1x</button>
-            <button id="speed-1.5" onclick="changeSpeedRate(1.5)">1.5x</button>
-            <button id="speed-2" onclick="changeSpeedRate(2)">2.x</button>
+          <div class="controls-container">
+            <div id="player-options">
+              <button id="play-stop" class="button">Play</button>
+              <button id="previous-button" class="button">Previous</button>
+              <button id="next-button" class="button">Next</button>
+            </div>
+            <div id="sound-options">
+              <button id="mute-button" class="button">Mute</button>
+              <input id="volume-slider" type="range" min="0" max="100" value="80">
+            </div>
+            <div id="speed-options">
+              <button id="speed-0.5" class="button" onclick="changeSpeedRate(0.5)">0.5x</button>
+              <button id="speed-1" class="button" onclick="changeSpeedRate(1)">1x</button>
+              <button id="speed-1.5" class="button" onclick="changeSpeedRate(1.5)">1.5x</button>
+              <button id="speed-2" class="button" onclick="changeSpeedRate(2)">2.x</button>
+            </div>
+            <div id="other-options">
+              <button id="fullscreen-button"  class="button">Fullscreen</button>
+              <button id="snapshot-button"  class="button">Snapshot</button>
+            </div>
           </div>
-          <div>
-            <input id="volume-slider" type="range" min="0" max="100" value="50">
-          </div>
-          <div>
-            <input id="progress-slider" type="range" min="0" max="100" value="0">
-          </div>
-          <div>
-            <button id="previous-button">Previous</button>
-            <button id="next-button">Next</button>
+          <div id="progress-slider">
+            <input type="range" min="0" max="100" value="0">
           </div>
         </div>
-        <video controls>
+        <video>
           <source id="mp4File" src="./public/videos/video0.mp4" type="video/mp4">
           <source id="webmFile" src="./public/videos/video0.webm" type="video/webm">
           <track label="Español" kind="subtitles" srclang="es" src="./public/subtitles/es/video0.es.vtt" default />
